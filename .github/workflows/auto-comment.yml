@@ -1,0 +1,17 @@
+name: Auto Comment
+runs-on: ubuntu-latest
+
+on: [push]
+jobs:
+  comment-on-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add comment to new issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              body: 'Thank you for your contribution!'
+            })
